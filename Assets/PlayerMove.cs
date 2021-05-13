@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour
 {
-	public float MovementSpeed = 4;
+	public float MovementSpeed = 1;
 	public float JumpForce = 10;
 
 	private Rigidbody2D _rigidbody;
@@ -28,5 +29,16 @@ public class PlayerMove : MonoBehaviour
         	_rigidbody.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
         }
         
+    }
+
+    private void OnCollisionEnter2D(Collision2D other){
+
+    	Debug.Log("Hit Detected");
+
+    	if(other.gameObject.tag == "Enemy"){
+
+    		Debug.Log("Respawn");
+    		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    	}
     }
 }
